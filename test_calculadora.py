@@ -1,60 +1,93 @@
-
-# test_calculadora.py
-
 import unittest
 
-from calculadora import dividir, multiplicar, somar, subtrair, potencia, calcular_media
+from calculadora import (
+    somar,
+    subtrair,
+    multiplicar,
+    dividir,
+    potencia,
+    calcular_media,
+)
 
 
 class TestCalculadora(unittest.TestCase):
-    """Classe de testes para as funções do arquivo calculadora.py."""
 
     def test_somar(self):
-        """Testa se a função somar está funcionando corretamente."""
-        self.assertEqual(somar(2, 3), 5)
-        self.assertEqual(somar(-1, 1), 0)
-        self.assertEqual(somar(0, 0), 0)
+        casos = [
+            (2, 3, 5),
+            (5, 0, 5),
+            (0, 0, 0),
+            (-2, 5, 3),
+        ]
+
+        for a, b, esperado in casos:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(somar(a, b), esperado)
 
     def test_subtrair(self):
-        """Testa se a função subtrair está funcionando corretamente."""
-        self.assertEqual(subtrair(10, 5), 5)
-        self.assertEqual(subtrair(5, 10), -5)
-        self.assertEqual(subtrair(0, 0), 0)
+        casos = [
+            (10, 5, 5),
+            (5, 10, -5),
+            (0, 0, 0),
+        ]
+
+        for a, b, esperado in casos:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(subtrair(a, b), esperado)
 
     def test_multiplicar(self):
-        """Testa se a função multiplicar está funcionando corretamente."""
-        self.assertEqual(multiplicar(3, 4), 12)
-        self.assertEqual(multiplicar(5, 0), 0)
-        self.assertEqual(multiplicar(-2, 3), -6)
+        casos = [
+            (3, 4, 12),
+            (5, 0, 0),
+            (-2, 3, -6),
+        ]
+
+        for a, b, esperado in casos:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(multiplicar(a, b), esperado)
 
     def test_dividir(self):
-        """Testa se a função dividir está funcionando corretamente."""
-        self.assertEqual(dividir(10, 2), 5)
-        self.assertEqual(dividir(9, 3), 3)
-        self.assertEqual(dividir(5, 2), 2.5)
+        casos = [
+            (10, 2, 5.0),
+            (5, 2, 2.5),
+            (0, 5, 0.0),
+            (-10, 2, -5.0),
+        ]
+
+        for a, b, esperado in casos:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(dividir(a, b), esperado)
 
     def test_dividir_por_zero(self):
-        """Testa se a divisão por zero gera erro."""
         with self.assertRaises(ZeroDivisionError):
             dividir(10, 0)
 
-def test_potencia(self):
-    self.assertEqual(potencia(2, 3), 8)
-    self.assertEqual(potencia(5, 0), 1)
-    self.assertEqual(potencia(10, 2), 100)
+    def test_potencia(self):
+        casos = [
+            (2, 3, 8),
+            (5, 0, 1),
+            (10, 2, 100),
+        ]
 
-def test_calcular_media_inteiros(self):
-    self.assertEqual(calcular_media([10, 8, 6]), 8)
+        for a, b, esperado in casos:
+            with self.subTest(a=a, b=b):
+                self.assertEqual(potencia(a, b), esperado)
 
-def test_calcular_media_decimais(self):
-    self.assertEqual(calcular_media([2.5, 3.5, 4.0]), 3.3333333333333335)
+    def test_calcular_media(self):
+        casos = [
+            ([10, 8, 6], 8),
+            ([2.5, 7.5], 5.0),
+            ([10], 10),
+        ]
 
-def test_calcular_media_um_elemento(self):
-    self.assertEqual(calcular_media([10]), 10)
+        for lista, esperado in casos:
+            with self.subTest(lista=lista):
+                self.assertEqual(calcular_media(lista), esperado)
 
-def test_calcular_media_lista_vazia(self):
-    with self.assertRaises(ValueError):
-        calcular_media([])
+    def test_calcular_media_lista_vazia(self):
+        with self.assertRaises(ValueError):
+            calcular_media([])
+
 
 if __name__ == "__main__":
     unittest.main()
